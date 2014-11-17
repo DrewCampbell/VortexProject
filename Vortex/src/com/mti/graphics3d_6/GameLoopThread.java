@@ -1,6 +1,7 @@
 package com.mti.graphics3d_6;
 
 import android.graphics.Canvas;
+import android.widget.Toast;
 
 
 
@@ -23,6 +24,9 @@ public class GameLoopThread extends Thread {
 		long ticksPS = 1000 /FPS;
 		long startTime;
 		long sleepTime;
+		
+		long startTestTime = System.currentTimeMillis();
+		long endTestTime;
 		
 		while(running) {
 			Canvas c = null;
@@ -48,6 +52,18 @@ public class GameLoopThread extends Thread {
 			} catch(Exception e) {
 				
 			}
-		}
+			
+			endTestTime = System.currentTimeMillis();
+			//  Arbitrary time right now....  should stop in a minute or so. 
+			if((endTestTime-startTestTime)>500000) {
+				running = false;
+			}  // end if
+		}  // end while
+
+		
+		//  should be out of loop here.
+		//  Toast will not work here this way.  Work on this tomorrow.
+		//  Toast.makeText(getBaseContext(), "Loop has finished!", Toast.LENGTH_LONG).show();
+		
 	}	
 }

@@ -1,5 +1,6 @@
 package com.mti.graphics3d_6;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import android.content.Context;
@@ -29,11 +30,15 @@ public class GameView extends SurfaceView {
 	private int boardWidth = 1000;
 	
 	Paint paint;
+
+	private ArrayList<EventObject> events;
 	
 	
 	public GameView(Context context) {
 		super(context);
 
+		events = new ArrayList<EventObject>();		
+		
 		gameLoopThread = new GameLoopThread(this);
 		holder = getHolder();
 		holder.addCallback(new Callback() {
@@ -219,6 +224,10 @@ public class GameView extends SurfaceView {
 			yBallSpeed = yBallSpeed + .01 * (Math.cos(angle))*gravity;
 		}
 		
+		// save the events in an event array
+		events.add(new EventObject(this.xBH, this.yBH));
+	
+	
 	}  // end onDraw
 	
 	private double getDistance(double xPoint1, double yPoint1, double xPoint2, double yPoint2) {
